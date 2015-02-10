@@ -1,4 +1,4 @@
-package zx.cmd;
+package zx.utils;
 
 import zx.primes.PrimeConfiguration;
 

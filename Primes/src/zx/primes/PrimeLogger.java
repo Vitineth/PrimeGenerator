@@ -1,6 +1,6 @@
 package zx.primes;
 
-import zx.cmd.DataWriter;
+import zx.utils.DataWriter;
 import zx.enums.LogType;
 import zx.primes.extras.PrimeStorage;
 import zx.utils.MessageGenerator;
