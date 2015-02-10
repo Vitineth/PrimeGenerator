@@ -14,6 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.JTextComponent;
+import zx.primes.PrimeConfiguration;
 
 /**
  * This is the window used to actually display the prime search and the
@@ -107,13 +108,9 @@ public class PrimeSearcher extends JFrame implements WindowListener {
 	 * 
 	 * @param primeThread
 	 *            - This is the thread the prime is being searched for in.
-	 * @param digits
-	 *            - The amount of digits it is searching for
-	 * @param amount
-	 *            - The amount of primes it is searching for
 	 */
-	public PrimeSearcher(Thread primeThread, int digits, int amount) {
-		this.primeThread = primeThread;
+    public PrimeSearcher(Thread primeThread, PrimeConfiguration configuration) {
+        this.primeThread = primeThread;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -134,8 +131,8 @@ public class PrimeSearcher extends JFrame implements WindowListener {
 		gbc_lblNewLabel.gridy = 0;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 
-		txtDigits = new JTextField("" + digits);
-		txtDigits.setEditable(false);
+        txtDigits = new JTextField("" + configuration.getPrimeDigits());
+        txtDigits.setEditable(false);
 		GridBagConstraints gbc_txtDigits = new GridBagConstraints();
 		gbc_txtDigits.insets = new Insets(0, 0, 5, 0);
 		gbc_txtDigits.fill = GridBagConstraints.HORIZONTAL;
@@ -152,8 +149,8 @@ public class PrimeSearcher extends JFrame implements WindowListener {
 		gbc_lblNewLabel_2.gridy = 1;
 		contentPane.add(lblAmount, gbc_lblNewLabel_2);
 
-		txtAmount = new JTextField("" + amount);
-		txtAmount.setEditable(false);
+        txtAmount = new JTextField("" + configuration.getPrimeAmount());
+        txtAmount.setEditable(false);
 		GridBagConstraints gbc_txtAmount = new GridBagConstraints();
 		gbc_txtAmount.insets = new Insets(0, 0, 5, 0);
 		gbc_txtAmount.fill = GridBagConstraints.HORIZONTAL;

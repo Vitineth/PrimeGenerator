@@ -1,6 +1,6 @@
 package zx.enums;
 
-import zx.guis.PrimeGenerator;
+import zx.primes.PrimeGenerator;
 
 /**
  * These are the log types used when output messages in {@link PrimeGenerator}.
