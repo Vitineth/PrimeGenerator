@@ -50,14 +50,16 @@ public class NumberGenerator {
         if (!currentGenerated.containsKey(threadKey)) {
 
             String number = "1";
-            for (int i = 0; i < length - 1; i++) {
+            for (int i = 0; i < length - 2; i++) {
                 number = number + "0";
             }
+            number = number + "1";
 
             currentGenerated.put(threadKey, new BigInteger(number));
         }
-
-        currentGenerated.put(threadKey, currentGenerated.get(threadKey).add(new BigInteger("1")));
+        BigInteger next = currentGenerated.get(threadKey).add(new BigInteger("2"));
+        if (next.mod(new BigInteger("2")) == BigInteger.ZERO) next = next.subtract(BigInteger.ONE);
+        currentGenerated.put(threadKey, next);
         return currentGenerated.get(threadKey);
     }
 
