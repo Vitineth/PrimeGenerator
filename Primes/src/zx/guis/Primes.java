@@ -206,7 +206,7 @@ public class Primes extends JFrame {
                                 gen.startPrimeLoop();//Start the loop
                             }
                         };
-                        PrimeSearcher searcher = new PrimeSearcher(primeThread, config);
+                        PrimeSearcher searcher = new PrimeSearcher(gen, primeThread, config);
 
                         JTextComponent[] comps = searcher.getOrderedLogFields();
                         config = new PrimeConfigurationBuilder(config).setFieldLoggingEnabled(true, true, true, true, true, comps[0], comps[1], comps[2], comps[3], comps[4]).build();

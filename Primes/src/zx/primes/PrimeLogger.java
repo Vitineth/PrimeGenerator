@@ -111,8 +111,6 @@ public class PrimeLogger {
             default:
                 break;
         }
-        if (configuration.getIsFieldLoggingEnabled()[0])
-            configuration.getMainLoggingArea().setCaretPosition(configuration.getMainLoggingArea().getText().length());
     }
 
 }

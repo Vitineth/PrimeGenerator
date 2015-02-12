@@ -6,15 +6,12 @@ import java.awt.Insets;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.DefaultCaret;
 import javax.swing.text.JTextComponent;
 import zx.primes.PrimeConfiguration;
+import zx.primes.PrimeGenerator;
 
 /**
  * This is the window used to actually display the prime search and the
@@ -88,6 +85,8 @@ public class PrimeSearcher extends JFrame implements WindowListener {
 	 */
 	private JLabel lblAmount;
 
+	private JCheckBox scroll;
+
 	/**
 	 * This is the text area used to store the log.
 	 */
@@ -97,6 +96,8 @@ public class PrimeSearcher extends JFrame implements WindowListener {
 	 * This is the thread that the prime is being searched in.
 	 */
 	private Thread primeThread;
+	private PrimeGenerator gen;
+	private boolean running;
 
 	/**
 	 * This is the scroll pane used for the log.
@@ -109,8 +110,9 @@ public class PrimeSearcher extends JFrame implements WindowListener {
 	 * @param primeThread
 	 *            - This is the thread the prime is being searched for in.
 	 */
-    public PrimeSearcher(Thread primeThread, PrimeConfiguration configuration) {
-        this.primeThread = primeThread;
+	public PrimeSearcher(PrimeGenerator gen, Thread primeThread, PrimeConfiguration configuration) {
+		this.primeThread = primeThread;
+		this.gen = gen;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -248,6 +250,36 @@ public class PrimeSearcher extends JFrame implements WindowListener {
 		gbc_txtPrime.gridy = 6;
 		contentPane.add(txtPrime, gbc_txtPrime);
 		txtPrime.setColumns(10);
+
+		scroll = new JCheckBox();
+		scroll.setText("Auto-scroll");
+		scroll.setSelected(true);
+		GridBagConstraints gbc_scroll = new GridBagConstraints();
+		gbc_scroll.fill = GridBagConstraints.HORIZONTAL;
+		gbc_scroll.gridx = 1;
+		gbc_scroll.gridy = 7;
+		contentPane.add(scroll, gbc_scroll);
+
+		running = true;
+		addWindowListener(this);
+		caretThread();
+	}
+
+	public void caretThread() {
+		Thread thread = new Thread() {
+			@Override
+			public void run() {
+				while (running) {
+					if (scroll != null && txtarLog != null && txtarLog.getText() != null)
+						if (scroll.isSelected()) {
+							((DefaultCaret) txtarLog.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+						} else {
+							((DefaultCaret) txtarLog.getCaret()).setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+						}
+				}
+			}
+		};
+		thread.start();
 	}
 
 	/**
@@ -267,7 +299,9 @@ public class PrimeSearcher extends JFrame implements WindowListener {
 	}
 
 	public void windowClosing(WindowEvent e) {
+		gen.cancelSearch();
 		primeThread.interrupt();
+		running = false;
 	}
 
 	@Override
