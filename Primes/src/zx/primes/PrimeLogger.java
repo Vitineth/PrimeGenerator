@@ -20,17 +20,17 @@ public class PrimeLogger {
         if (configuration.isFileLoggingEnabled()) {
             switch (logType) {
                 case FULL:
-                    DataWriter.writeToFile(MessageGenerator.generateFinalMessage(storage.getGlobalCounter(), storage.getGenerations(), storage.getLength(), storage.getStartTime(), storage.getFinalEndTime()), configuration);
+                    DataWriter.writeToFile(MessageGenerator.generateFinalMessage(storage.getGlobalCounter(), storage.getGenerations(), configuration.getPrimeDigits(), storage.getStartTime(), storage.getFinalEndTime()), configuration);
                     break;
                 case SEMI:
-                    DataWriter.writeToFile(MessageGenerator.generateSemiFinalMessage(storage.getCurrentNumber(), storage.getLocalCounter(), storage.getLength(), storage.getCurrentTime(), storage.getStartTime()), configuration);
+                    DataWriter.writeToFile(MessageGenerator.generateSemiFinalMessage(storage.getCurrentNumber(), storage.getLocalCounter(), configuration.getPrimeDigits(), storage.getCurrentTime(), storage.getStartTime()), configuration);
                     break;
                 case TYRS:
-                    DataWriter.writeToFile(MessageGenerator.generateTryMessage(storage.getCurrentNumber(), storage.getLocalCounter(), storage.getLength(), storage.isCurrentPrime()), configuration);
+                    DataWriter.writeToFile(MessageGenerator.generateTryMessage(storage.getCurrentNumber(), storage.getLocalCounter(), configuration.getPrimeDigits(), storage.isCurrentPrime()), configuration);
                     break;
                 case BEGIN:
                     if (configuration.isBeginMessageEnabled())
-                        DataWriter.writeToFile(MessageGenerator.generateBeginMessage(storage.getGenerations(), storage.getLength()), configuration);
+                        DataWriter.writeToFile(MessageGenerator.generateBeginMessage(storage.getGenerations(), configuration.getPrimeDigits()), configuration);
                 default:
                     break;
             }
@@ -47,17 +47,17 @@ public class PrimeLogger {
     public static void stdOutLog(LogType logType, PrimeConfiguration configuration, PrimeStorage storage) {
         switch (logType) {
             case FULL:
-                DataWriter.writeToStdOut(MessageGenerator.generateFinalMessage(storage.getGlobalCounter(), storage.getGenerations(), storage.getLength(), storage.getStartTime(), storage.getFinalEndTime()));
+                DataWriter.writeToStdOut(MessageGenerator.generateFinalMessage(storage.getGlobalCounter(), storage.getGenerations(), configuration.getPrimeDigits(), storage.getStartTime(), storage.getFinalEndTime()));
                 break;
             case SEMI:
-                DataWriter.writeToStdOut(MessageGenerator.generateSemiFinalMessage(storage.getCurrentNumber(), storage.getLocalCounter(), storage.getLength(), storage.getCurrentTime(), storage.getStartTime()));
+                DataWriter.writeToStdOut(MessageGenerator.generateSemiFinalMessage(storage.getCurrentNumber(), storage.getLocalCounter(), configuration.getPrimeDigits(), storage.getCurrentTime(), storage.getStartTime()));
                 break;
             case TYRS:
-                DataWriter.writeToStdOut(MessageGenerator.generateTryMessage(storage.getCurrentNumber(), storage.getLocalCounter(), storage.getLength(), storage.isCurrentPrime()));
+                DataWriter.writeToStdOut(MessageGenerator.generateTryMessage(storage.getCurrentNumber(), storage.getLocalCounter(), configuration.getPrimeDigits(), storage.isCurrentPrime()));
                 break;
             case BEGIN:
                 if (configuration.isBeginMessageEnabled())
-                    DataWriter.writeToStdOut(MessageGenerator.generateBeginMessage(storage.getGenerations(), storage.getLength()));
+                    DataWriter.writeToStdOut(MessageGenerator.generateBeginMessage(storage.getGenerations(), configuration.getPrimeDigits()));
             default:
                 break;
         }
@@ -72,7 +72,7 @@ public class PrimeLogger {
         switch (logType) {
             case FULL:
                 if (configuration.getIsFieldLoggingEnabled()[0])
-                    configuration.getMainLoggingArea().setText(configuration.getMainLoggingArea().getText() + MessageGenerator.generateFinalMessage(storage.getGlobalCounter(), storage.getGenerations(), storage.getLength(), storage.getStartTime(), storage.getFinalEndTime()) + "\n");
+                    configuration.getMainLoggingArea().setText(configuration.getMainLoggingArea().getText() + MessageGenerator.generateFinalMessage(storage.getGlobalCounter(), storage.getGenerations(), configuration.getPrimeDigits(), storage.getStartTime(), storage.getFinalEndTime()) + "\n");
                 //PRIME
                 if (configuration.getIsFieldLoggingEnabled()[2])
                     configuration.getLocalPrimeCounter().setText("" + storage.getLocalCounter());
@@ -82,7 +82,7 @@ public class PrimeLogger {
                 break;
             case SEMI:
                 if (configuration.getIsFieldLoggingEnabled()[0])
-                    configuration.getMainLoggingArea().setText(configuration.getMainLoggingArea().getText() + MessageGenerator.generateFinalMessage(storage.getGlobalCounter(), storage.getGenerations(), storage.getLength(), storage.getStartTime(), storage.getFinalEndTime()) + "\n");
+                    configuration.getMainLoggingArea().setText(configuration.getMainLoggingArea().getText() + MessageGenerator.generateFinalMessage(storage.getGlobalCounter(), storage.getGenerations(), configuration.getPrimeDigits(), storage.getStartTime(), storage.getFinalEndTime()) + "\n");
                 if (configuration.getIsFieldLoggingEnabled()[1])
                     configuration.getPrimeLoggingArea().setText(storage.getCurrentNumber().toString());
                 if (configuration.getIsFieldLoggingEnabled()[2])
@@ -94,7 +94,7 @@ public class PrimeLogger {
                 break;
             case TYRS:
                 if (configuration.getIsFieldLoggingEnabled()[0])
-                    configuration.getMainLoggingArea().setText(configuration.getMainLoggingArea().getText() + MessageGenerator.generateTryMessage(storage.getCurrentNumber(), storage.getLocalCounter(), storage.getLength(), storage.isCurrentPrime()) + "\n");
+                    configuration.getMainLoggingArea().setText(configuration.getMainLoggingArea().getText() + MessageGenerator.generateTryMessage(storage.getCurrentNumber(), storage.getLocalCounter(), configuration.getPrimeDigits(), storage.isCurrentPrime()) + "\n");
                 //PRIME
                 if (configuration.getIsFieldLoggingEnabled()[2])
                     configuration.getLocalPrimeCounter().setText("" + storage.getLocalCounter());
@@ -104,7 +104,7 @@ public class PrimeLogger {
                 break;
             case BEGIN:
                 if (configuration.getIsFieldLoggingEnabled()[0])
-                    configuration.getMainLoggingArea().setText(configuration.getMainLoggingArea().getText() + MessageGenerator.generateBeginMessage(storage.getGenerations(), storage.getLength()) + "\n");
+                    configuration.getMainLoggingArea().setText(configuration.getMainLoggingArea().getText() + MessageGenerator.generateBeginMessage(storage.getGenerations(), configuration.getPrimeDigits()) + "\n");
                 if (configuration.getIsFieldLoggingEnabled()[4])
                     configuration.getCurrentPrimeLogger().setText("" + storage.getCurrentPrimeSearch());
                 break;
