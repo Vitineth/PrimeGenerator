@@ -193,6 +193,7 @@ public class Primes extends JFrame {
                     if (parseable(txtDigits.getText()) && parseable(txtAmount.getText())) {//If both the inputs in digits and times are numbers
                         generations++;//Increment generations
 
+                        //Build the configuration
                         PrimeConfiguration config = new PrimeConfigurationBuilder()
                                 .setPrimeDigitAmount(Long.parseLong(txtDigits.getText()))
                                 .setPrimeGenerationAmount(Long.parseLong(txtAmount.getText()))
@@ -200,20 +201,30 @@ public class Primes extends JFrame {
                                 .setIsBeginMessageEnabled(!chckbxNewCheckBox.isSelected())
                                 .setIsSequential(rdBtnYes.isSelected())
                                 .build();
+
+                        //And form a new prime generator
                         gen = new PrimeGenerator(config, generations);
+                        //And then create a thread for it
                         Thread primeThread = new Thread("Prime Generator Loop #" + generations) {
                             public void run() {
                                 gen.startPrimeLoop();//Start the loop
                             }
                         };
+
+                        //Create a prime searcher with the generator, thread and configuration
                         PrimeSearcher searcher = new PrimeSearcher(gen, primeThread, config);
 
+                        //Then get the fields in an ordered list from the searcher
                         JTextComponent[] comps = searcher.getOrderedLogFields();
+                        //Update the config with the new fields
                         config = new PrimeConfigurationBuilder(config).setFieldLoggingEnabled(true, true, true, true, true, comps[0], comps[1], comps[2], comps[3], comps[4]).build();
 
+                        //And reset the config
                         gen.setConfiguration(config);
 
+                        //Finally open the window
                         searcher.openWindow();
+                        //And start the thread
                         primeThread.start();
 
                     }

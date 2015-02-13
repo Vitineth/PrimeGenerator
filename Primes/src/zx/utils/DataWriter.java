@@ -10,7 +10,8 @@ public class DataWriter {
     /**
      * This will attempt to write the given string to file.
      *
-     * @param message - The message to write to file.
+     * @param message String - The message to write to file.
+     * @param configuration PrimeConfiguration - The configuration used in the prime generation
      */
     public static void writeToFile(String message, PrimeConfiguration configuration) {
         writeToStdOut("Writing to file: [" + message + "]");

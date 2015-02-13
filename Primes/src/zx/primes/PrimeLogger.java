@@ -14,7 +14,9 @@ public class PrimeLogger {
      * This will attempt to log the the file but it the system is disabled it
      * will just print to console.
      *
-     * @param logType - Where the message is coming from
+     * @param logType LogType - Where the message is coming from
+     * @param configuration PrimeConfiguration - The configuration used for the prime generation
+     * @param storage PrimeStorage - The storage mod used for the prime generation
      */
     public static void fileLog(LogType logType, PrimeConfiguration configuration, PrimeStorage storage) {
         if (configuration.isFileLoggingEnabled()) {
@@ -42,7 +44,9 @@ public class PrimeLogger {
     /**
      * This will attempt to log a message to the standard output
      *
-     * @param logType - Where the message is coming from
+     * @param logType LogType - Where the message is coming from
+     * @param configuration PrimeConfiguration - The configuration used for the prime generation
+     * @param storage PrimeStorage - The storage mod used for the prime generation
      */
     public static void stdOutLog(LogType logType, PrimeConfiguration configuration, PrimeStorage storage) {
         switch (logType) {
@@ -66,7 +70,9 @@ public class PrimeLogger {
     /**
      * This will attempt to log to the text fields
      *
-     * @param logType - Where the message is coming from.
+     * @param logType LogType - Where the message is coming from
+     * @param configuration PrimeConfiguration - The configuration used for the prime generation
+     * @param storage PrimeStorage - The storage mod used for the prime generation
      */
     public static void txtLog(LogType logType, PrimeConfiguration configuration, PrimeStorage storage) {
         switch (logType) {

@@ -31,6 +31,7 @@ public class PrimeGenerator {
      * This will create a prime generator with the given config.
      *
      * @param configuration The configuration for the prime generator
+     * @param threadKey int - The threads key used for sequential generation.
      */
     public PrimeGenerator(PrimeConfiguration configuration, int threadKey) {
         this.configuration = configuration;
@@ -94,6 +95,11 @@ public class PrimeGenerator {
         storage.setCurrentTime(System.currentTimeMillis());
     }
 
+    /**
+     * This will reset the prime configuration to the given value
+     *
+     * @param configuration PrimeConfiguration - The new configuration for the generator
+     */
     public void setConfiguration(PrimeConfiguration configuration) {
         this.configuration = configuration;
     }

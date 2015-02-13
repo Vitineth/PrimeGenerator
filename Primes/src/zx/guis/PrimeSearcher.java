@@ -265,7 +265,10 @@ public class PrimeSearcher extends JFrame implements WindowListener {
 		caretThread();
 	}
 
-	public void caretThread() {
+    /**
+     * This will start the thread which will set the caret to the end of the main log area if auto scroll is enabled and the thread is running.
+     */
+    public void caretThread() {
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
